@@ -1,6 +1,3 @@
-server:
-  port: 8010
-
 aws:
   apiKey: <API KEY>
   secretKey: <SECRET KEY>

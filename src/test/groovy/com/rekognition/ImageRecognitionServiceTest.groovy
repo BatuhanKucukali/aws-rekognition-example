@@ -12,7 +12,7 @@ class ImageRecognitionServiceTest extends Specification {
 
     def "detect text expected null"() {
         given:
-        def image = new FileInputStream("src/test/resources/static/joda.jpg")
+        def image = new FileInputStream("src/test/resources/static/amazon-go-shelf.png")
         when:
         def text = imageRecognitionService.detectText(image.getBytes())
         then:
@@ -21,11 +21,10 @@ class ImageRecognitionServiceTest extends Specification {
 
     def "detect text expected text"() {
         given:
-        def image = new FileInputStream("src/test/resources/static/joda-text.jpg")
+        def image = new FileInputStream("src/test/resources/static/amazon-go-logo.jpg")
         when:
         def text = imageRecognitionService.detectText(image.getBytes())
         then:
-        println text
-        text.contains("YOUMUSTUNLEARNWHATYOUHAVELEARNED")
+        text.contains("amazongo")
     }
 }
