@@ -39,8 +39,7 @@ public class AmazonRekognitionServiceImpl implements ImageRecognitionService {
     @Override
     public String detectText(byte[] image) {
         DetectTextRequest request = new DetectTextRequest()
-                .withImage(new Image()
-                        .withBytes(ByteBuffer.wrap(image)));
+                .withImage(new Image().withBytes(ByteBuffer.wrap(image)));
         try {
             DetectTextResult result = client.detectText(request);
             List<TextDetection> textDetections = result.getTextDetections();
@@ -70,8 +69,7 @@ public class AmazonRekognitionServiceImpl implements ImageRecognitionService {
     @Override
     public List<String> detectCelebrity(byte[] image) {
         RecognizeCelebritiesRequest request = new RecognizeCelebritiesRequest()
-                .withImage(new Image()
-                        .withBytes(ByteBuffer.wrap(image)));
+                .withImage(new Image().withBytes(ByteBuffer.wrap(image)));
 
         RecognizeCelebritiesResult result = client.recognizeCelebrities(request);
 
