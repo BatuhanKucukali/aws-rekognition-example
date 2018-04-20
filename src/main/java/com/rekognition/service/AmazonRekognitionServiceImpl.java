@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -64,5 +65,32 @@ public class AmazonRekognitionServiceImpl implements ImageRecognitionService {
             log.error("Detect Text Exception :", e);
         }
         return null;
+    }
+
+    @Override
+    public List<String> detectCelebrity(byte[] image) {
+        RecognizeCelebritiesRequest request = new RecognizeCelebritiesRequest()
+                .withImage(new Image()
+                        .withBytes(ByteBuffer.wrap(image)));
+
+        RecognizeCelebritiesResult result = client.recognizeCelebrities(request);
+
+        List<Celebrity> celebs = result.getCelebrityFaces();
+        log.info(celebs.size() + " celebrity(s) were recognized");
+
+        List<String> celebrities = new ArrayList<>();
+
+        for (Celebrity celebrity : celebs) {
+            log.info("Celebrity recognized: " + celebrity.getName());
+            log.info("Celebrity ID: " + celebrity.getId());
+
+            for (String url : celebrity.getUrls()) {
+                log.info("Url: " + url);
+            }
+
+            celebrities.add(celebrity.getName());
+        }
+
+        return celebrities;
     }
 }
