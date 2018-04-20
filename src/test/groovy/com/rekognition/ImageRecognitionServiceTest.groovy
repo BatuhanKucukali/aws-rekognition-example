@@ -27,4 +27,23 @@ class ImageRecognitionServiceTest extends Specification {
         then:
         text.contains("amazongo")
     }
+
+    def "detect celebrity expected empty list"() {
+        given:
+        def image = new FileInputStream("src/test/resources/static/non-celebrity.jpg")
+        when:
+        def celebrities = imageRecognitionService.detectCelebrity(image.getBytes())
+        then:
+        celebrities.isEmpty()
+    }
+
+    def "detect celebrity expected celebrity list"() {
+        given:
+        def image = new FileInputStream("src/test/resources/static/celebrity.jpg")
+        when:
+        def celebrities = imageRecognitionService.detectCelebrity(image.getBytes())
+        then:
+        !celebrities.isEmpty()
+        celebrities.contains("Jeff Bezos")
+    }
 }
